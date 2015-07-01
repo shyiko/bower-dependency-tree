@@ -1,3 +1,20 @@
 #!/usr/bin/env node
 
-['babel/register', '../src/cli'].forEach(require);
+var path = require('path');
+
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+require("babel/register")({
+  // workaround for babel's broken src/babel/api/register/node.js:shouldIgnore
+  // (adviced require skips files when module is installed with -g)
+  only: [
+    new RegExp(
+      escapeRegExp(path.resolve(path.join(__dirname, '..', 'src')) + path.sep) +
+      '.*'
+    )
+  ]
+});
+
+require('../src/cli')();

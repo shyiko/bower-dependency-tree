@@ -9,30 +9,6 @@ var explicitRange = require('./explicit-range');
 var rangeComparator = require('./range-comparator');
 var bowerConfig = require('./bower-config');
 
-var argv = require('yargs')
-  .usage('Usage: $0 <options> <endpoint>')
-  .default({'log-level': 'info', production: false, depth: -1})
-  .boolean('production')
-  .alias('log-level', 'l')
-  .describe('log-level',
-    'Log level (set it to "debug" for more verbose logs)')
-  .describe('production', 'Skip devDependencies')
-  .describe('grep',
-    'Hide branches of the tree not having a specific dependency')
-  .describe('depth', 'Scanning depth (not limited by default)')
-  .example('$0', '# "expand" bower.json')
-  .example('$0 composer#2.4.0', '# print dependency tree of composer#2.4.0')
-  .help('help')
-  .alias('help', 'h')
-  .wrap(null)
-  .argv;
-
-bowerConfig.DEFAULT_CONFIG = argv.config || {};
-
-winston.level = argv['log-level'];
-winston.cli();
-winston.padLevels = false;
-
 var sortByName = (arr) => stable(arr, (l, r) => l.name.localeCompare(r.name));
 
 var tree = ({endpoint, name, version, dependencies, devDependencies,
@@ -74,24 +50,52 @@ var summary = (pkg) => {
     chalk.yellow(stable([...failedToSatisfySet]).join(', ')) + ']');
 };
 
-resolve(argv._[0] || 'bower.json', {
-    production: argv.production,
-    depth: argv.depth
-  })
-  .then((pkg) => {
-    var cpkg = consolidate(pkg);
-    if (!argv.grep || grep(cpkg, argv.grep)) {
-      console.log();
-      tree(cpkg);
-      console.log();
-      summary(cpkg);
-    } else {
-      console.log();
-      console.log('NO MATCH');
-      console.log();
-    }
-  })
-  .catch((err) => {
-    console.error(err.stack);
-    process.exit(1);
-  });
+module.exports = () => {
+
+  var argv = require('yargs')
+    .usage('Usage: $0 <options> <endpoint>')
+    .default({'log-level': 'info', production: false, depth: -1})
+    .boolean('production')
+    .alias('log-level', 'l')
+    .describe('log-level',
+    'Log level (set it to "debug" for more verbose logs)')
+    .describe('production', 'Skip devDependencies')
+    .describe('grep',
+    'Hide branches of the tree not having a specific dependency')
+    .describe('depth', 'Scanning depth (not limited by default)')
+    .example('$0', '# "expand" bower.json')
+    .example('$0 composer#2.4.0', '# print dependency tree of composer#2.4.0')
+    .help('help')
+    .alias('help', 'h')
+    .wrap(null)
+    .argv;
+
+  bowerConfig.DEFAULT_CONFIG = argv.config || {};
+
+  winston.level = argv['log-level'];
+  winston.cli();
+  winston.padLevels = false;
+
+  resolve(argv._[0] || 'bower.json', {
+      production: argv.production,
+      depth: argv.depth
+    })
+    .then((pkg) => {
+      var cpkg = consolidate(pkg);
+      if (!argv.grep || grep(cpkg, argv.grep)) {
+        console.log();
+        tree(cpkg);
+        console.log();
+        summary(cpkg);
+      } else {
+        console.log();
+        console.log('NO MATCH');
+        console.log();
+      }
+    })
+    .catch((err) => {
+      console.error(err.stack);
+      process.exit(1);
+    });
+
+};
