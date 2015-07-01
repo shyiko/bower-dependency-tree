@@ -1,0 +1,27 @@
+{
+  "name": "bower-dependency-tree",
+  "description": "Bower dependency tree visualizer",
+  "version": "0.1.0",
+  "author": "Stanley Shyiko <stanley.shyiko@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shyiko/bower-dependency-tree"
+  },
+  "bin": "./bin/bower-dependency-tree",
+  "main": "./lib",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "bower-config": "^0.6.1",
+    "chalk": "^1.0.0",
+    "semver": "^4.3.6",
+    "stable": "^0.1.5",
+    "winston": "^1.0.1",
+    "yargs": "^3.14.0"
+  },
+  "keywords": [
+    "bower",
+    "dependency",
+    "tree"
+  ]
+}
