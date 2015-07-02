@@ -1,7 +1,8 @@
 # bower-dependency-tree
 
-[Bower](http://bower.io/) dependency tree visualizer. It shows circular dependencies 
-(in red), version conflicts (in yellow) and unique packages (not "truncated") (in green).  
+A command-line tool for displaying [Bower](http://bower.io/) dependency tree. 
+
+> Circular dependencies are shown in red, version conflicts in yellow and packages "to be installed" in green.  
 
 ![sample output](https://cloud.githubusercontent.com/assets/370176/8443885/8f3a2512-1f3f-11e5-9889-6bc7b6094fb0.png)
 
