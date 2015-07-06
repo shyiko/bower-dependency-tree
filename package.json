@@ -23,6 +23,8 @@
   "keywords": [
     "bower",
     "dependency",
-    "tree"
+    "dependencies",
+    "tree",
+    "graph"
   ]
 }
