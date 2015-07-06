@@ -1,7 +1,7 @@
 {
   "name": "bower-dependency-tree",
   "description": "Bower dependency tree visualizer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Stanley Shyiko <stanley.shyiko@gmail.com>",
   "license": "MIT",
   "repository": {
