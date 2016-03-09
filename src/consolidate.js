@@ -22,7 +22,7 @@ var consolidate = (pkg, idx) => {
     , []);
   if (failedToSatisfy.length) {
     var versionWithinRange = [...idx.versions.get(name)].reduce((r, version) =>
-      semver.satisfies(version, [...idx.ranges.get(name)].join(' ')) ?
+      version === 'latest' || semver.satisfies(version, [...idx.ranges.get(name)].join(' ')) ?
         r.concat(version) : r
       , []).sort((l, r) => semver.gt(l, r))[0];
     if (versionWithinRange) {
