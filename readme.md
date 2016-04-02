@@ -4,7 +4,7 @@ A command-line tool for displaying [Bower](http://bower.io/) dependency tree.
 
 > Circular dependencies are shown in red, version conflicts in yellow and packages "to be installed" in green.  
 
-![sample output](https://cloud.githubusercontent.com/assets/370176/8443885/8f3a2512-1f3f-11e5-9889-6bc7b6094fb0.png)
+![sample output](https://cloud.githubusercontent.com/assets/370176/14224870/54065212-f861-11e5-8231-ccafd1911363.png)
 
 ## Installation
 
